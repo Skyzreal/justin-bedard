@@ -4,9 +4,32 @@
       <div class="detail-top-bar">
         <a routerLink="/proprietes" class="back-link">Retour aux propriétés</a>
         <div class="detail-actions">
-          <button class="btn btn-outline share-btn" type="button" (click)="share()" [class.copied]="shareCopied()">
-            {{ shareCopied() ? 'Lien copié!' : '⤢ Partager' }}
-          </button>
+          <div class="share-wrap">
+            <button class="btn btn-outline share-btn" type="button" (click)="share()" [class.copied]="shareCopied()">
+              {{ shareCopied() ? 'Lien copié!' : '⤢ Partager' }}
+            </button>
+
+            @if (shareOpen()) {
+              <div class="share-backdrop" (click)="closeShare()" aria-hidden="true"></div>
+              <div class="share-panel" role="menu">
+                <button class="share-option" type="button" (click)="copyLink()" role="menuitem">
+                  <span class="share-icon">&#x1F517;</span> Copier le lien
+                </button>
+                <button class="share-option" type="button" (click)="shareVia('facebook')" role="menuitem">
+                  <span class="share-icon share-icon--facebook">f</span> Facebook
+                </button>
+                <button class="share-option" type="button" (click)="shareVia('whatsapp')" role="menuitem">
+                  <span class="share-icon share-icon--whatsapp">&#x2709;</span> WhatsApp
+                </button>
+                <button class="share-option" type="button" (click)="shareVia('x')" role="menuitem">
+                  <span class="share-icon share-icon--x">𝕏</span> X (Twitter)
+                </button>
+                <button class="share-option" type="button" (click)="shareVia('email')" role="menuitem">
+                  <span class="share-icon">&#x2709;</span> Courriel
+                </button>
+              </div>
+            }
+          </div>
         </div>
       </div>
 
@@ -185,9 +208,7 @@
       <button class="lightbox-nav lightbox-nav--prev" (click)="prevPhoto()" aria-label="Photo précédente">‹</button>
 
       <div class="lightbox-content">
-        <div class="lightbox-img img-placeholder">
-          {{ property.photos[lightboxIndex()]?.description }}
-        </div>
+        <img class="lightbox-img" [src]="property.photos[lightboxIndex()]?.url" [alt]="property.photos[lightboxIndex()]?.alt" />
         <p class="lightbox-caption">{{ property.photos[lightboxIndex()]?.alt }}</p>
         <p class="lightbox-counter">{{ lightboxIndex() + 1 }} / {{ property.photos.length }}</p>
       </div>
@@ -204,7 +225,7 @@
             [attr.aria-pressed]="lightboxIndex() === i"
             type="button"
           >
-            <div class="img-placeholder thumb-img">{{ i + 1 }}</div>
+            <img class="thumb-img" [src]="photo.url" [alt]="photo.alt" />
           </button>
         }
       </div>

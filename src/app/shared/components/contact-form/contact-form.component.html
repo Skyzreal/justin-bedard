@@ -51,15 +51,17 @@
       />
     </label>
 
-    <label>
-      <span>Service</span>
-      <select formControlName="service">
-        <option>Je cherche une propriété</option>
-        <option>Je veux vendre</option>
-        <option>Évaluation gratuite</option>
-        <option>Autre question</option>
-      </select>
-    </label>
+    @if (context === 'general') {
+      <label>
+        <span>Service</span>
+        <select formControlName="service">
+          <option>Je cherche une propriété</option>
+          <option>Je veux vendre</option>
+          <option>Évaluation gratuite</option>
+          <option>Autre question</option>
+        </select>
+      </label>
+    }
 
     <label>
       <span>Message</span>

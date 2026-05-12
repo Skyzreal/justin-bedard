@@ -7,9 +7,7 @@
       [attr.aria-label]="'Voir ' + photo.alt"
       type="button"
     >
-      <div class="img-placeholder" role="img" [attr.aria-label]="photo.alt">
-        {{ photo.description }}
-      </div>
+      <img [src]="photo.url" [alt]="photo.alt" loading="lazy" />
       <span class="photo-overlay" aria-hidden="true">
         <span class="zoom-icon">⤢</span>
       </span>

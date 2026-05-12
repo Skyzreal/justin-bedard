@@ -1,4 +1,4 @@
-import { Component, Input, signal } from '@angular/core';
+import { Component, Input, OnInit, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgClass } from '@angular/common';
 
@@ -8,7 +8,7 @@ import { NgClass } from '@angular/common';
   templateUrl: './contact-form.component.html',
   styleUrl: './contact-form.component.scss'
 })
-export class ContactFormComponent {
+export class ContactFormComponent implements OnInit {
   @Input() theme: 'light' | 'dark' = 'light';
   @Input() context: 'general' | 'property' = 'general';
 
@@ -24,6 +24,12 @@ export class ContactFormComponent {
       service: ['Je cherche une propriété'],
       message: ['']
     });
+  }
+
+  ngOnInit(): void {
+    if (this.context === 'property') {
+      this.form.get('service')?.setValue('Demande de visite');
+    }
   }
 
   submit(): void {

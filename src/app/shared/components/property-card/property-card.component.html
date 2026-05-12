@@ -1,36 +1,47 @@
-<article class="property-card">
-  <a [routerLink]="['/proprietes', property.slug]" class="property-card__media" aria-label="{{ property.title }}">
-    <div class="img-placeholder" role="img" [attr.aria-label]="property.photos[0]?.alt">
-      {{ property.photos[0]?.description }}
+<article class="property-card" [class.property-card--sold]="property.status === 'sold'">
+
+  @if (property.status === 'sold') {
+    <div class="property-card__media">
+      <img [src]="property.photos[0]?.url" [alt]="property.photos[0]?.alt" loading="lazy" />
+      <div class="sold-overlay" aria-hidden="true"></div>
+      <span class="badge badge--sold">Vendue</span>
     </div>
-    @if (property.featured) {
-      <span class="badge badge--featured">En vedette</span>
-    }
-    @if (property.isNew) {
-      <span class="badge badge--new">Nouveauté</span>
-    }
-    <span class="badge badge--type">{{ property.type }}</span>
-  </a>
+  } @else {
+    <a [routerLink]="['/proprietes', property.slug]" class="property-card__media" [attr.aria-label]="property.title">
+      <img [src]="property.photos[0]?.url" [alt]="property.photos[0]?.alt" loading="lazy" />
+      @if (property.featured) {
+        <span class="badge badge--featured">En vedette</span>
+      }
+      <span class="badge badge--type">{{ property.type }}</span>
+    </a>
+  }
 
   <div class="property-card__body">
-    <h3>
-      <a [routerLink]="['/proprietes', property.slug]">{{ property.title }}</a>
-    </h3>
+    @if (property.status === 'sold') {
+      <h3>{{ property.title }}</h3>
+    } @else {
+      <h3>
+        <a [routerLink]="['/proprietes', property.slug]">{{ property.title }}</a>
+      </h3>
+    }
     <p class="address">{{ property.address }}, {{ property.city }}</p>
-    <ul class="features">
-      <li title="Chambres">
-        <span class="feat-icon" aria-hidden="true">🛏</span>
-        {{ property.bedrooms }}
-      </li>
-      <li title="Salles de bain">
-        <span class="feat-icon" aria-hidden="true">🚿</span>
-        {{ property.bathrooms }}
-      </li>
-      <li title="Superficie">
-        <span class="feat-icon" aria-hidden="true">◻</span>
-        {{ property.area | number }} pi²
-      </li>
-    </ul>
+    @if (property.status !== 'sold') {
+      <ul class="features">
+        <li title="Chambres">
+          <span class="feat-icon" aria-hidden="true">🛏</span>
+          {{ property.bedrooms }}
+        </li>
+        <li title="Salles de bain">
+          <span class="feat-icon" aria-hidden="true">🚿</span>
+          {{ property.bathrooms }}
+        </li>
+        <li title="Superficie">
+          <span class="feat-icon" aria-hidden="true">◻</span>
+          {{ property.area | number }} pi²
+        </li>
+      </ul>
+    }
     <p class="price">{{ property.price | currency:'CAD':'symbol':'1.0-0':'fr-CA' }}</p>
   </div>
+
 </article>

@@ -20,6 +20,89 @@
   color: var(--color-accent);
 }
 
+.share-wrap {
+  position: relative;
+}
+
+.share-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+}
+
+.share-panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: var(--color-card-warm);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .1);
+  min-width: 200px;
+  z-index: 11;
+  overflow: hidden;
+  animation: share-in .15s ease;
+}
+
+@keyframes share-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.share-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 11px 16px;
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: .88rem;
+  color: var(--color-ink);
+  cursor: pointer;
+  text-align: left;
+  transition: background .15s;
+
+  &:hover {
+    background: var(--color-surface-alt);
+  }
+
+  & + & {
+    border-top: 1px solid var(--color-border);
+  }
+}
+
+.share-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--color-surface-alt);
+  font-size: .8rem;
+  flex-shrink: 0;
+
+  &--facebook {
+    background: #1877f2;
+    color: #fff;
+    font-weight: 700;
+    font-size: .9rem;
+  }
+
+  &--whatsapp {
+    background: #25d366;
+    color: #fff;
+  }
+
+  &--x {
+    background: #000;
+    color: #fff;
+    font-size: .75rem;
+  }
+}
+
 /* Layout */
 .property-detail-layout {
   display: grid;
@@ -421,10 +504,9 @@
   width: 100%;
   aspect-ratio: 1.5;
   border-radius: var(--radius-md);
-  color: rgba(255, 255, 255, .5);
-  font-size: .85rem;
   background: rgba(255, 255, 255, .05);
-  min-height: 0;
+  object-fit: cover;
+  display: block;
 }
 
 .lightbox-caption {
@@ -468,12 +550,10 @@
 }
 
 .thumb-img {
-  min-height: 0;
+  width: 100%;
   height: 100%;
-  font-size: .7rem;
-  color: rgba(255, 255, 255, .4);
-  padding: 0;
-  background: transparent;
+  object-fit: cover;
+  display: block;
 }
 
 /* Not found */

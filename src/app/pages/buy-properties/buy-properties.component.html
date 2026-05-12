@@ -1,11 +1,13 @@
 <section class="properties-hero" aria-label="Bannière propriétés">
-  <div class="container properties-hero__inner">
-    <p class="eyebrow">Trouver votre maison</p>
-    <h1 class="display-title">
-      Découvrez la propriété<br>
-      <em class="script">de vos rêves</em>
-    </h1>
-    <p class="hero-desc">Explorez notre sélection de propriétés à vendre dans la région de Gatineau-Ottawa.</p>
+  <div class="container">
+    <div class="properties-hero__inner">
+      <p class="eyebrow">Trouver votre maison</p>
+      <h1 class="display-title">
+        Découvrez la propriété<br>
+        <em class="script">de vos rêves</em>
+      </h1>
+      <p class="hero-desc">Explorez notre sélection de propriétés à vendre dans la région de Gatineau-Ottawa.</p>
+    </div>
   </div>
 </section>
 
@@ -23,36 +25,73 @@
         autocomplete="off"
       />
     </div>
+
+    <button
+      class="filter-btn"
+      [class.filter-btn--open]="filterOpen()"
+      [class.filter-btn--has-filters]="activeFilterCount() > 0"
+      (click)="toggleFilter()"
+      type="button"
+      [attr.aria-expanded]="filterOpen()"
+      aria-controls="filter-panel"
+    >
+      <svg class="filter-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+      </svg>
+      Filtrer
+      @if (activeFilterCount() > 0) {
+        <span class="filter-count" aria-label="{{ activeFilterCount() }} filtres actifs">{{ activeFilterCount() }}</span>
+      }
+    </button>
   </div>
+
+  @if (filterOpen()) {
+    <div id="filter-panel" class="container filter-panel" role="region" aria-label="Filtres de recherche">
+      <div class="filter-row">
+        <div class="filter-group">
+          <p class="filter-group-label">Type de propriété</p>
+          <div class="filter-chips">
+            @for (type of propertyTypes; track type) {
+              <button
+                class="filter-chip"
+                [class.filter-chip--active]="selectedTypes().has(type)"
+                (click)="toggleType(type)"
+                type="button"
+              >{{ type }}</button>
+            }
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <p class="filter-group-label">Chambres (min.)</p>
+          <div class="filter-chips">
+            @for (n of bedroomOptions; track n) {
+              <button
+                class="filter-chip"
+                [class.filter-chip--active]="minBedrooms() === n"
+                (click)="setMinBedrooms(n)"
+                type="button"
+              >{{ n }}+</button>
+            }
+          </div>
+        </div>
+
+        @if (activeFilterCount() > 0) {
+          <button class="filter-reset" (click)="resetFilters()" type="button">
+            Effacer les filtres
+          </button>
+        }
+      </div>
+    </div>
+  }
 </div>
 
 <section class="listings-section section">
   <div class="container">
     <div class="listings-toolbar">
-      <div class="tabs" role="tablist" aria-label="Filtrer les propriétés">
-        <button
-          role="tab"
-          [class.is-active]="activeTab() === 'active'"
-          (click)="setTab('active')"
-          [attr.aria-selected]="activeTab() === 'active'"
-        >À vendre</button>
-        <button
-          role="tab"
-          [class.is-active]="activeTab() === 'featured'"
-          (click)="setTab('featured')"
-          [attr.aria-selected]="activeTab() === 'featured'"
-        >En vedette</button>
-        <button
-          role="tab"
-          [class.is-active]="activeTab() === 'sold'"
-          (click)="setTab('sold')"
-          [attr.aria-selected]="activeTab() === 'sold'"
-        >Vendues</button>
-      </div>
-
       <div class="toolbar-right">
         <p class="listing-count" aria-live="polite">
-          {{ filteredProperties().length }} propriété{{ filteredProperties().length !== 1 ? 's' : '' }}
+          {{ activeProperties().length }} propriété{{ activeProperties().length !== 1 ? 's' : '' }} trouvée{{ activeProperties().length !== 1 ? 's' : '' }}
         </p>
         <label class="sort-label" for="sort-select">
           <span class="sr-only">Trier par</span>
@@ -69,9 +108,9 @@
       </div>
     </div>
 
-    @if (filteredProperties().length > 0) {
+    @if (activeProperties().length > 0) {
       <div class="properties-grid grid-3">
-        @for (property of filteredProperties(); track property.id) {
+        @for (property of activeProperties(); track property.id) {
           <app-property-card [property]="property" />
         }
       </div>
@@ -87,3 +126,33 @@
     }
   </div>
 </section>
+
+<section class="exclusive-cta-section section">
+  <div class="container">
+    <app-section-heading
+      eyebrow="Vous ne trouvez pas ce que vous cherchez ?"
+      title="Propriétés exclusives disponibles"
+      subtitle="Contactez-moi pour accéder à des propriétés hors-marché et exclusives. Je vous aiderai à cibler les opportunités qui correspondent exactement à vos critères et à votre budget."
+    />
+    <div class="exclusive-cta__actions">
+      <a routerLink="/contact" class="btn btn-primary">Me contacter</a>
+    </div>
+  </div>
+</section>
+
+@if (soldProperties().length > 0) {
+  <section class="sold-section section section--alt">
+    <div class="container">
+      <app-section-heading
+        eyebrow="Vendues"
+        title="Ventes récentes"
+        subtitle="Chaque transaction conclue représente un client satisfait et une promesse tenue. Voici quelques propriétés récemment vendues par Justin Bédard."
+      />
+      <div class="properties-grid grid-3">
+        @for (property of soldProperties(); track property.id) {
+          <app-property-card [property]="property" />
+        }
+      </div>
+    </div>
+  </section>
+}

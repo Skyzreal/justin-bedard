@@ -21,6 +21,7 @@ export class PropertyDetailComponent {
   property: Property | undefined;
   lightboxOpen = signal(false);
   lightboxIndex = signal(0);
+  shareOpen = signal(false);
   shareCopied = signal(false);
 
   mortgageForm: FormGroup;
@@ -61,15 +62,36 @@ export class PropertyDetailComponent {
   }
 
   share(): void {
-    const url = window.location.href;
     if (navigator.share) {
-      navigator.share({ title: this.property?.title, url }).catch(() => {});
+      navigator.share({ title: this.property?.title, url: window.location.href }).catch(() => {});
     } else {
-      navigator.clipboard.writeText(url).then(() => {
-        this.shareCopied.set(true);
-        setTimeout(() => this.shareCopied.set(false), 2000);
-      });
+      this.shareOpen.update(v => !v);
     }
+  }
+
+  closeShare(): void {
+    this.shareOpen.set(false);
+  }
+
+  copyLink(): void {
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      this.shareCopied.set(true);
+      this.shareOpen.set(false);
+      setTimeout(() => this.shareCopied.set(false), 2000);
+    });
+  }
+
+  shareVia(platform: 'facebook' | 'whatsapp' | 'email' | 'x'): void {
+    const url = encodeURIComponent(window.location.href);
+    const title = encodeURIComponent(this.property?.title ?? '');
+    const urls: Record<string, string> = {
+      facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}`,
+      whatsapp: `https://wa.me/?text=${title}%20${url}`,
+      email: `mailto:?subject=${title}&body=${url}`,
+      x: `https://x.com/intent/tweet?url=${url}&text=${title}`,
+    };
+    window.open(urls[platform], '_blank', 'noopener,noreferrer');
+    this.shareOpen.set(false);
   }
 
   calculateMortgage(): void {

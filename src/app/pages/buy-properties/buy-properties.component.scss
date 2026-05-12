@@ -37,9 +37,6 @@
   background: var(--color-card);
   border-bottom: 1px solid var(--color-border);
   padding-block: 18px;
-  position: sticky;
-  top: 82px;
-  z-index: 10;
   box-shadow: 0 4px 16px rgba(26, 26, 24, .06);
 }
 
@@ -52,7 +49,6 @@
 .search-field {
   position: relative;
   flex: 1;
-  max-width: 560px;
 }
 
 .search-icon {
@@ -86,45 +82,148 @@
   }
 }
 
-/* Toolbar */
-.listings-toolbar {
-  display: flex;
+/* Filter button */
+.filter-btn {
+  display: inline-flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 32px;
-  gap: 16px;
+  gap: 7px;
+  padding: .68rem 1.1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-card-warm);
+  font-family: inherit;
+  font-size: .88rem;
+  font-weight: 600;
+  color: var(--color-ink);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color .2s, background .2s;
+  flex-shrink: 0;
+
+  &:hover {
+    border-color: var(--color-ink);
+  }
+
+  &.filter-btn--open,
+  &.filter-btn--has-filters {
+    border-color: var(--color-ink);
+    background: var(--color-ink);
+    color: #fff;
+
+    .filter-icon {
+      stroke: #fff;
+    }
+  }
+}
+
+.filter-icon {
+  flex-shrink: 0;
+}
+
+.filter-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: var(--color-accent);
+  color: #fff;
+  font-size: .68rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* Filter panel */
+.filter-panel {
+  padding-top: 16px;
+  padding-bottom: 20px;
+  border-top: 1px solid var(--color-border);
+  margin-top: 16px;
+}
+
+.filter-row {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
   flex-wrap: wrap;
 }
 
-.tabs {
+.filter-group {
   display: flex;
-  gap: 4px;
-  background: var(--color-surface-alt);
-  padding: 4px;
-  border-radius: var(--radius-sm);
+  flex-direction: column;
+  gap: 10px;
+}
 
-  button {
-    padding: .5rem 1.1rem;
-    background: transparent;
-    border: none;
-    border-radius: calc(var(--radius-sm) - 2px);
-    font-size: .82rem;
-    font-weight: 600;
-    color: var(--color-muted);
-    cursor: pointer;
-    transition: background .2s, color .2s;
-    white-space: nowrap;
+.filter-group-label {
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin: 0;
+}
 
-    &.is-active {
-      background: var(--color-card);
-      color: var(--color-ink);
-      box-shadow: 0 1px 4px rgba(26, 26, 24, .1);
-    }
+.filter-chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
 
-    &:hover:not(.is-active) {
-      color: var(--color-ink);
-    }
+.filter-chip {
+  padding: .38rem .9rem;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: transparent;
+  font-family: inherit;
+  font-size: .82rem;
+  font-weight: 500;
+  color: var(--color-ink);
+  cursor: pointer;
+  transition: border-color .15s, background .15s, color .15s;
+
+  &:hover {
+    border-color: var(--color-ink);
   }
+
+  &.filter-chip--active {
+    background: var(--color-ink);
+    border-color: var(--color-ink);
+    color: #fff;
+  }
+}
+
+.filter-reset {
+  align-self: flex-end;
+  padding: .38rem .85rem;
+  border: none;
+  background: none;
+  font-family: inherit;
+  font-size: .82rem;
+  color: var(--color-muted);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color .15s;
+  margin-top: auto;
+
+  &:hover {
+    color: var(--color-ink);
+  }
+}
+
+/* Toolbar */
+.listings-section {
+  padding-block-start: 28px;
+}
+
+.listings-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 28px;
+  gap: 16px;
+  flex-wrap: wrap;
 }
 
 .toolbar-right {
@@ -190,6 +289,15 @@
   display: block;
 }
 
+/* CTA + sold sections */
+.exclusive-cta-section {
+  background: var(--color-card);
+}
+
+.exclusive-cta__actions {
+  text-align: center;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -204,11 +312,10 @@
 
 @media (max-width: 760px) {
   .listings-toolbar {
-    flex-direction: column;
-    align-items: flex-start;
+    justify-content: flex-start;
   }
 
-  .search-bar-section {
-    top: 72px;
+  .filter-row {
+    gap: 20px;
   }
 }
