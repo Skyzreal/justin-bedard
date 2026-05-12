@@ -1,0 +1,37 @@
+.field-error {
+  font-size: .72rem;
+  color: #c0392b;
+  margin-top: 2px;
+}
+
+.form-success {
+  text-align: center;
+  padding: 40px 24px;
+
+  .success-icon {
+    font-size: 2.5rem;
+    color: var(--color-accent);
+    margin: 0 0 8px;
+  }
+
+  h3 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.8rem;
+    margin: 0 0 8px;
+  }
+
+  p {
+    color: var(--color-muted);
+    margin: 0;
+  }
+}
+
+.contact-form--dark .form-success {
+  h3 {
+    color: #F7F5EF;
+  }
+
+  p {
+    color: rgba(247, 245, 239, .6);
+  }
+}

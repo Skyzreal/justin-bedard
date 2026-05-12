@@ -1,0 +1,143 @@
+.site-footer {
+  background: #101010;
+  color: #F7F5EF;
+  padding-top: 72px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 460px);
+  gap: 72px;
+  align-items: start;
+  padding-bottom: 64px;
+}
+
+.footer-info {
+  .eyebrow {
+    color: var(--color-accent-light);
+  }
+
+  h2 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(2.2rem, 4vw, 3.8rem);
+    line-height: .95;
+    margin: .3rem 0 1rem;
+    color: #F7F5EF;
+    font-weight: 600;
+  }
+}
+
+.footer-copy {
+  color: rgba(247, 245, 239, .72);
+  margin-bottom: 28px;
+  max-width: 420px;
+}
+
+.contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 32px;
+  color: rgba(247, 245, 239, .72);
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: .9rem;
+  }
+
+  a {
+    color: rgba(247, 245, 239, .72);
+    transition: color .2s;
+
+    &:hover {
+      color: var(--color-accent-light);
+    }
+  }
+}
+
+.contact-icon {
+  width: 28px;
+  flex-shrink: 0;
+  color: var(--color-accent-light);
+  opacity: .8;
+}
+
+.footer-signature {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2.4rem;
+  color: #fff;
+  border-top: 1px solid rgba(255, 255, 255, .14);
+  padding-top: 24px;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, .08);
+  padding-block: 22px;
+}
+
+.footer-bottom-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.footer-brand {
+  font-size: .82rem;
+  font-weight: 600;
+  color: rgba(247, 245, 239, .6);
+  transition: color .2s;
+
+  &:hover {
+    color: #fff;
+  }
+}
+
+.footer-nav {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+
+  a {
+    font-size: .78rem;
+    color: rgba(247, 245, 239, .45);
+    transition: color .2s;
+    letter-spacing: .04em;
+
+    &:hover {
+      color: rgba(247, 245, 239, .85);
+    }
+  }
+}
+
+.footer-brokerage-logo {
+  height: 22px;
+  width: auto;
+  filter: brightness(0) invert(1);
+  opacity: .35;
+}
+
+.copyright {
+  font-size: .75rem;
+  color: rgba(247, 245, 239, .3);
+  margin: 0;
+}
+
+@media (max-width: 800px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding-bottom: 48px;
+  }
+
+  .footer-bottom-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}

@@ -1,0 +1,220 @@
+@if (property) {
+  <main class="property-detail-page">
+    <div class="container">
+      <div class="detail-top-bar">
+        <a routerLink="/proprietes" class="back-link">Retour aux propriétés</a>
+        <div class="detail-actions">
+          <button class="btn btn-outline share-btn" type="button" (click)="share()" [class.copied]="shareCopied()">
+            {{ shareCopied() ? 'Lien copié!' : '⤢ Partager' }}
+          </button>
+        </div>
+      </div>
+
+      <app-photo-grid [photos]="property.photos" (openLightbox)="openLightbox($event)" />
+
+      <div class="property-detail-layout">
+        <article class="property-main">
+          <div class="property-header">
+            <div>
+              <p class="eyebrow">{{ property.type }}</p>
+              <h1 class="display-title--md">{{ property.title }}</h1>
+              <p class="detail-address">{{ property.address }}, {{ property.city }}</p>
+            </div>
+            <div class="price-block">
+              <p class="detail-price">{{ property.price | currency:'CAD':'symbol':'1.0-0':'fr-CA' }}</p>
+              @if (property.status === 'sold') {
+                <span class="sold-badge">Vendue</span>
+              }
+            </div>
+          </div>
+
+          <ul class="feature-stats" role="list">
+            <li class="feat-stat">
+              <span class="feat-label">Chambres</span>
+              <strong>{{ property.bedrooms }}</strong>
+            </li>
+            <li class="feat-stat">
+              <span class="feat-label">Salles de bain</span>
+              <strong>{{ property.bathrooms }}</strong>
+            </li>
+            <li class="feat-stat">
+              <span class="feat-label">Superficie</span>
+              <strong>{{ property.area | number }} pi²</strong>
+            </li>
+            @if (property.lotSize) {
+              <li class="feat-stat">
+                <span class="feat-label">Terrain</span>
+                <strong>{{ property.lotSize | number }} pi²</strong>
+              </li>
+            }
+            @if (property.yearBuilt) {
+              <li class="feat-stat">
+                <span class="feat-label">Année</span>
+                <strong>{{ property.yearBuilt }}</strong>
+              </li>
+            }
+          </ul>
+
+          <section class="property-section">
+            <h2>Description</h2>
+            <p>{{ property.description }}</p>
+          </section>
+
+          @if (property.features.length > 0) {
+            <section class="property-section">
+              <h2>Caractéristiques</h2>
+              <ul class="features-list">
+                @for (feature of property.features; track feature) {
+                  <li>
+                    <span class="feat-check" aria-hidden="true">✓</span>
+                    {{ feature }}
+                  </li>
+                }
+              </ul>
+            </section>
+          }
+
+          @if (property.municipalEvaluation) {
+            <section class="property-section">
+              <h2>Évaluation municipale</h2>
+              <div class="muni-eval-grid">
+                <div class="muni-eval-row">
+                  <span>Évaluation municipale</span>
+                  <strong>{{ property.municipalEvaluation | currency:'CAD':'symbol':'1.0-0':'fr-CA' }}</strong>
+                </div>
+                @if (property.municipalTax) {
+                  <div class="muni-eval-row">
+                    <span>Taxes municipales</span>
+                    <strong>{{ property.municipalTax | currency:'CAD':'symbol':'1.0-0':'fr-CA' }}/an</strong>
+                  </div>
+                }
+                @if (property.schoolTax) {
+                  <div class="muni-eval-row">
+                    <span>Taxes scolaires</span>
+                    <strong>{{ property.schoolTax | currency:'CAD':'symbol':'1.0-0':'fr-CA' }}/an</strong>
+                  </div>
+                }
+                @if (property.yearBuilt) {
+                  <div class="muni-eval-row">
+                    <span>Année de construction</span>
+                    <strong>{{ property.yearBuilt }}</strong>
+                  </div>
+                }
+              </div>
+            </section>
+          }
+
+          <section class="property-section mortgage-calculator">
+            <h2>Calculateur hypothécaire</h2>
+            <p class="muted">Estimation mensuelle basée sur vos paramètres. Consultez un courtier hypothécaire pour un calcul précis.</p>
+
+            <form [formGroup]="mortgageForm" (ngSubmit)="calculateMortgage()" class="mortgage-form">
+              <div class="mortgage-row">
+                <label>
+                  <span>Prix d'achat</span>
+                  <input type="number" formControlName="price" min="0" step="1000" />
+                </label>
+                <label>
+                  <span>Mise de fonds</span>
+                  <input type="number" formControlName="downPayment" min="0" step="1000" />
+                </label>
+              </div>
+              <div class="mortgage-row">
+                <label>
+                  <span>Taux d'intérêt (%)</span>
+                  <input type="number" formControlName="rate" min="0" max="30" step="0.05" />
+                </label>
+                <label>
+                  <span>Amortissement (ans)</span>
+                  <select formControlName="amortization">
+                    <option [value]="10">10 ans</option>
+                    <option [value]="15">15 ans</option>
+                    <option [value]="20">20 ans</option>
+                    <option [value]="25">25 ans</option>
+                    <option [value]="30">30 ans</option>
+                  </select>
+                </label>
+              </div>
+              <button class="btn btn-primary" type="submit">Calculer</button>
+            </form>
+
+            @if (monthlyPayment() !== null) {
+              <div class="mortgage-result" role="status" aria-live="polite">
+                <span class="result-label">Paiement mensuel estimé</span>
+                <strong class="result-amount">{{ monthlyPayment() | currency:'CAD':'symbol':'1.0-0':'fr-CA' }}/mois</strong>
+                <p class="result-disclaimer">Estimation avant assurances, taxes et ajustements. Consultez votre institution financière.</p>
+              </div>
+            }
+          </section>
+        </article>
+
+        <aside class="property-sidebar">
+          <div class="sidebar-broker-card card">
+            <div class="broker-avatar" aria-hidden="true">
+              <div class="img-placeholder">Photo Justin Bédard</div>
+            </div>
+            <div class="broker-info">
+              <p class="broker-name">Justin Bédard</p>
+              <p class="broker-title">Courtier immobilier agréé</p>
+              <a href="tel:8193604943" class="btn btn-primary broker-phone">
+                ☎ 819.360.4943
+              </a>
+            </div>
+          </div>
+
+          <div class="sidebar-form-card card">
+            <h3>Demander une visite</h3>
+            <app-contact-form context="property" />
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  @if (lightboxOpen()) {
+    <div
+      class="lightbox"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Galerie photos"
+      (keydown.escape)="closeLightbox()"
+      tabindex="-1"
+    >
+      <button class="lightbox-close" (click)="closeLightbox()" aria-label="Fermer la galerie">✕</button>
+
+      <button class="lightbox-nav lightbox-nav--prev" (click)="prevPhoto()" aria-label="Photo précédente">‹</button>
+
+      <div class="lightbox-content">
+        <div class="lightbox-img img-placeholder">
+          {{ property.photos[lightboxIndex()]?.description }}
+        </div>
+        <p class="lightbox-caption">{{ property.photos[lightboxIndex()]?.alt }}</p>
+        <p class="lightbox-counter">{{ lightboxIndex() + 1 }} / {{ property.photos.length }}</p>
+      </div>
+
+      <button class="lightbox-nav lightbox-nav--next" (click)="nextPhoto()" aria-label="Photo suivante">›</button>
+
+      <div class="lightbox-thumbnails">
+        @for (photo of property.photos; track photo.alt; let i = $index) {
+          <button
+            class="thumb"
+            [class.is-active]="lightboxIndex() === i"
+            (click)="lightboxIndex.set(i)"
+            [attr.aria-label]="photo.alt"
+            [attr.aria-pressed]="lightboxIndex() === i"
+            type="button"
+          >
+            <div class="img-placeholder thumb-img">{{ i + 1 }}</div>
+          </button>
+        }
+      </div>
+    </div>
+    <div class="lightbox-backdrop" (click)="closeLightbox()" aria-hidden="true"></div>
+  }
+} @else {
+  <div class="not-found container section">
+    <h1>Propriété introuvable</h1>
+    <p>La propriété que vous cherchez n'existe pas ou a été retirée.</p>
+    <a routerLink="/proprietes" class="btn btn-primary">Voir toutes les propriétés</a>
+  </div>
+}

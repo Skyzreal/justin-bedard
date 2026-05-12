@@ -1,0 +1,108 @@
+<section class="sell-hero">
+  <div class="container sell-hero__inner">
+    <div class="sell-hero__text">
+      <p class="eyebrow">Vendre avec Justin</p>
+      <h1 class="display-title">
+        Vendez plus vite,<br>
+        <em class="script">au meilleur prix</em>
+      </h1>
+      <p class="hero-desc">Un processus de vente éprouvé, un marketing de haut niveau et un accompagnement personnalisé du début à la fin.</p>
+      <div class="hero-ctas">
+        <a routerLink="/evaluation" class="btn btn-primary">Évaluation gratuite</a>
+        <a routerLink="/contact" class="btn btn-outline-white">Me contacter</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <app-section-heading
+      eyebrow="Notre processus"
+      title="Notre processus de vente éprouvé"
+      subtitle="10 étapes claires et transparentes pour vous guider vers une vente réussie, sans surprises."
+    />
+    <ul class="process-grid" role="list">
+      @for (step of processSteps; track step.num) {
+        <li class="process-card">
+          <span class="step-number">{{ step.num }}</span>
+          <h3>{{ step.label }}</h3>
+          <p>{{ step.desc }}</p>
+        </li>
+      }
+    </ul>
+  </div>
+</section>
+
+<section class="section marketing-section">
+  <div class="container marketing-grid">
+    <div class="marketing-image" aria-hidden="true">
+      <div class="img-placeholder">
+        Cuisine haut de gamme lumineuse — armoires pâles, grandes fenêtres, îlot central, plantes, luminaires dorés
+      </div>
+    </div>
+    <div class="marketing-text">
+      <p class="eyebrow">Marketing en profondeur</p>
+      <h2 class="display-title--md">Une visibilité maximale pour votre propriété</h2>
+      <p>Votre propriété mérite d'être vue par les bons acheteurs, au bon moment, sur les bonnes plateformes. Notre stratégie marketing multi-canal garantit une exposition maximale.</p>
+      <ul class="checklist">
+        @for (point of marketingPoints; track point) {
+          <li>
+            <span class="check-icon" aria-hidden="true">✓</span>
+            {{ point }}
+          </li>
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt prep-section">
+  <div class="container prep-grid">
+    <div class="prep-text">
+      <p class="eyebrow">Préparation professionnelle</p>
+      <h2 class="display-title--md">Valorisez votre propriété avant la mise en marché</h2>
+      <p>La première impression est déterminante. Nous vous accompagnons pour présenter votre propriété sous son meilleur jour et obtenir le meilleur prix.</p>
+      <ul class="checklist">
+        @for (point of prepPoints; track point) {
+          <li>
+            <span class="check-icon" aria-hidden="true">✓</span>
+            {{ point }}
+          </li>
+        }
+      </ul>
+    </div>
+    <div class="prep-image" aria-hidden="true">
+      <div class="img-placeholder">
+        Chambre à coucher minimaliste et élégante — literie beige superposée, murs blancs, grande fenêtre, lumière douce
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section exclusive-section">
+  <div class="container exclusive-grid">
+    <div class="exclusive-image" aria-hidden="true">
+      <div class="img-placeholder">
+        Salle à manger élégante avec grande table, chaises rembourrées, lustre, palette neutre chaude
+      </div>
+    </div>
+    <div class="exclusive-text">
+      <p class="eyebrow">Services exclusifs</p>
+      <h2 class="display-title--md">Un service complet, de A à Z</h2>
+      <p>Au-delà de la vente, je vous offre un écosystème de services et de partenaires pour simplifier chaque étape de votre transaction.</p>
+      <ul class="checklist">
+        @for (point of exclusiveServices; track point) {
+          <li>
+            <span class="check-icon" aria-hidden="true">✓</span>
+            {{ point }}
+          </li>
+        }
+      </ul>
+      <div style="margin-top: 28px; display: flex; gap: 12px; flex-wrap: wrap;">
+        <a routerLink="/evaluation" class="btn btn-primary">Évaluation gratuite</a>
+        <a routerLink="/contact" class="btn btn-outline">Parler à Justin</a>
+      </div>
+    </div>
+  </div>
+</section>

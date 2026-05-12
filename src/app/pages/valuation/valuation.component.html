@@ -1,0 +1,161 @@
+<div class="valuation-page">
+  <section class="valuation-intro">
+    <div class="valuation-intro__inner">
+      <p class="eyebrow">Évaluation gratuite</p>
+      <h1 class="display-title">
+        Évaluation gratuite<br>
+        <em class="script">de vos rêves</em>
+      </h1>
+      <p class="intro-desc">Découvrez la vraie valeur marchande de votre propriété sans frais ni obligation. Une analyse comparative complète du marché actuel de Gatineau-Ottawa.</p>
+
+      <ul class="intro-benefits">
+        <li>
+          <span class="benefit-icon" aria-hidden="true">✓</span>
+          Analyse comparative du marché actuel
+        </li>
+        <li>
+          <span class="benefit-icon" aria-hidden="true">✓</span>
+          Sans frais ni obligation
+        </li>
+        <li>
+          <span class="benefit-icon" aria-hidden="true">✓</span>
+          Réponse dans les 24 heures
+        </li>
+        <li>
+          <span class="benefit-icon" aria-hidden="true">✓</span>
+          Rencontre en personne ou virtuelle
+        </li>
+      </ul>
+
+      <div class="intro-broker">
+        <div class="broker-avatar" aria-hidden="true">
+          <div class="img-placeholder">Photo Justin Bédard</div>
+        </div>
+        <div>
+          <strong>Justin Bédard</strong>
+          <span>Courtier immobilier agréé</span>
+          <a href="tel:8193604943">819.360.4943</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="valuation-form-panel">
+    <div class="valuation-form-card card card--elevated">
+      @if (submitted()) {
+        <div class="form-success" role="alert">
+          <p class="success-icon">✓</p>
+          <h2>Demande reçue!</h2>
+          <p>Merci pour votre confiance. Justin vous contactera dans les 24 heures pour planifier votre évaluation gratuite.</p>
+        </div>
+      } @else {
+        <h2 class="form-title">Veuillez remplir la section suivante</h2>
+        <hr class="form-divider">
+
+        <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+          <div class="field-row">
+            <label>
+              <span>Prénom *</span>
+              <input type="text" formControlName="firstName" placeholder="Votre prénom" autocomplete="given-name" />
+              @if (form.get('firstName')?.invalid && form.get('firstName')?.touched) {
+                <span class="field-error">Requis</span>
+              }
+            </label>
+            <label>
+              <span>Nom *</span>
+              <input type="text" formControlName="lastName" placeholder="Votre nom" autocomplete="family-name" />
+              @if (form.get('lastName')?.invalid && form.get('lastName')?.touched) {
+                <span class="field-error">Requis</span>
+              }
+            </label>
+          </div>
+
+          <div class="field-row">
+            <label>
+              <span>Téléphone à la maison</span>
+              <input type="tel" formControlName="homePhone" placeholder="819 000-0000" />
+            </label>
+            <label>
+              <span>Téléphone au travail</span>
+              <input type="tel" formControlName="workPhone" placeholder="819 000-0000" />
+            </label>
+          </div>
+
+          <div class="field-row">
+            <label>
+              <span>Cellulaire *</span>
+              <input type="tel" formControlName="cellPhone" placeholder="819 000-0000" autocomplete="tel" />
+              @if (form.get('cellPhone')?.invalid && form.get('cellPhone')?.touched) {
+                <span class="field-error">Requis</span>
+              }
+            </label>
+            <label>
+              <span>Courriel *</span>
+              <input type="email" formControlName="email" placeholder="votre&#64;courriel.ca" autocomplete="email" />
+              @if (form.get('email')?.invalid && form.get('email')?.touched) {
+                <span class="field-error">Courriel invalide</span>
+              }
+            </label>
+          </div>
+
+          <label>
+            <span>Adresse de la propriété *</span>
+            <input type="text" formControlName="address" placeholder="123 Rue des Érables" autocomplete="street-address" />
+            @if (form.get('address')?.invalid && form.get('address')?.touched) {
+              <span class="field-error">Requis</span>
+            }
+          </label>
+
+          <div class="field-row">
+            <label>
+              <span>Ville *</span>
+              <input type="text" formControlName="city" placeholder="Gatineau" />
+              @if (form.get('city')?.invalid && form.get('city')?.touched) {
+                <span class="field-error">Requis</span>
+              }
+            </label>
+            <label>
+              <span>Type de propriété</span>
+              <select formControlName="propertyType">
+                <option>Maison</option>
+                <option>Condo</option>
+                <option>Jumelé</option>
+                <option>Terrain</option>
+                <option>Commercial</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="field-row">
+            <label>
+              <span>Nombre de chambres</span>
+              <select formControlName="bedrooms">
+                <option value="">--</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5+</option>
+              </select>
+            </label>
+            <label>
+              <span>Année de construction</span>
+              <input type="number" formControlName="yearBuilt" placeholder="ex. 2005" min="1900" max="2025" />
+            </label>
+          </div>
+
+          <label>
+            <span>Informations supplémentaires</span>
+            <textarea formControlName="message" rows="3" placeholder="Rénovations récentes, particularités…"></textarea>
+          </label>
+
+          <button class="btn btn-primary submit-btn" type="submit">
+            Demander mon évaluation gratuite
+          </button>
+
+          <p class="form-disclaimer">En soumettant ce formulaire, vous consentez à être contacté par Justin Bédard concernant votre évaluation immobilière.</p>
+        </form>
+      }
+    </div>
+  </section>
+</div>

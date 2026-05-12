@@ -1,0 +1,89 @@
+<section class="properties-hero" aria-label="Bannière propriétés">
+  <div class="container properties-hero__inner">
+    <p class="eyebrow">Trouver votre maison</p>
+    <h1 class="display-title">
+      Découvrez la propriété<br>
+      <em class="script">de vos rêves</em>
+    </h1>
+    <p class="hero-desc">Explorez notre sélection de propriétés à vendre dans la région de Gatineau-Ottawa.</p>
+  </div>
+</section>
+
+<div class="search-bar-section">
+  <div class="container search-bar-inner">
+    <div class="search-field">
+      <label for="property-search" class="sr-only">Rechercher une propriété</label>
+      <span class="search-icon" aria-hidden="true">🔍</span>
+      <input
+        id="property-search"
+        type="search"
+        placeholder="Rechercher par adresse, ville, type…"
+        [value]="searchQuery()"
+        (input)="onSearch($any($event.target).value)"
+        autocomplete="off"
+      />
+    </div>
+  </div>
+</div>
+
+<section class="listings-section section">
+  <div class="container">
+    <div class="listings-toolbar">
+      <div class="tabs" role="tablist" aria-label="Filtrer les propriétés">
+        <button
+          role="tab"
+          [class.is-active]="activeTab() === 'active'"
+          (click)="setTab('active')"
+          [attr.aria-selected]="activeTab() === 'active'"
+        >À vendre</button>
+        <button
+          role="tab"
+          [class.is-active]="activeTab() === 'featured'"
+          (click)="setTab('featured')"
+          [attr.aria-selected]="activeTab() === 'featured'"
+        >En vedette</button>
+        <button
+          role="tab"
+          [class.is-active]="activeTab() === 'sold'"
+          (click)="setTab('sold')"
+          [attr.aria-selected]="activeTab() === 'sold'"
+        >Vendues</button>
+      </div>
+
+      <div class="toolbar-right">
+        <p class="listing-count" aria-live="polite">
+          {{ filteredProperties().length }} propriété{{ filteredProperties().length !== 1 ? 's' : '' }}
+        </p>
+        <label class="sort-label" for="sort-select">
+          <span class="sr-only">Trier par</span>
+          <select
+            id="sort-select"
+            [value]="sortKey()"
+            (change)="onSort($any($event.target).value)"
+          >
+            <option value="newest">Plus récentes</option>
+            <option value="price-asc">Prix croissant</option>
+            <option value="price-desc">Prix décroissant</option>
+          </select>
+        </label>
+      </div>
+    </div>
+
+    @if (filteredProperties().length > 0) {
+      <div class="properties-grid grid-3">
+        @for (property of filteredProperties(); track property.id) {
+          <app-property-card [property]="property" />
+        }
+      </div>
+    } @else {
+      <div class="no-results" role="status">
+        <div class="no-results__inner">
+          <span class="no-results__icon" aria-hidden="true">🏠</span>
+          <h2>Aucune propriété trouvée</h2>
+          <p>Aucune propriété ne correspond à votre recherche. Modifiez vos critères ou contactez-nous.</p>
+          <a routerLink="/contact" class="btn btn-primary">Parler à Justin</a>
+        </div>
+      </div>
+    }
+  </div>
+</section>

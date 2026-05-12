@@ -1,0 +1,36 @@
+.section-heading {
+  text-align: center;
+  max-width: 760px;
+  margin-inline: auto;
+  margin-bottom: 48px;
+
+  &.align-left {
+    text-align: left;
+    margin-inline: 0;
+  }
+
+  h2 {
+    margin: .4rem 0 .8rem;
+  }
+
+  .subtitle {
+    color: var(--color-muted);
+    margin: 0;
+    font-size: .95rem;
+    line-height: 1.7;
+  }
+
+  &.is-light {
+    h2 {
+      color: #F7F5EF;
+    }
+
+    .eyebrow {
+      color: var(--color-accent-light);
+    }
+
+    .subtitle {
+      color: rgba(247, 245, 239, .65);
+    }
+  }
+}

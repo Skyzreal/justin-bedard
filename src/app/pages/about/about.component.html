@@ -1,0 +1,97 @@
+<section class="about-hero">
+  <div class="container about-hero__inner">
+    <div class="about-hero__text">
+      <p class="eyebrow">À propos de moi</p>
+      <h1 class="display-title">
+        Plus qu'un courtier,<br>
+        <em class="script">Un partenaire de confiance</em>
+      </h1>
+      <p>Passionné d'immobilier et profondément attaché à la communauté de Gatineau-Ottawa, je mets mon expertise au service de vos rêves depuis plus de 20 ans.</p>
+    </div>
+    <div class="about-hero__image" aria-hidden="true">
+      <img src="justin_suit.png" alt="Justin Bédard" class="about-portrait" />
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt values-section">
+  <div class="container">
+    <app-section-heading
+      eyebrow="Mes valeurs"
+      title="Ce qui me distingue"
+      subtitle="Quatre piliers qui guident chacune de mes transactions et chacune de mes relations client."
+    />
+    <ul class="values-grid" role="list">
+      @for (v of values; track v.label) {
+        <li class="value-card">
+          <div class="value-icon-ring" aria-hidden="true">{{ v.icon }}</div>
+          <h3>{{ v.label }}</h3>
+          <p>{{ v.desc }}</p>
+        </li>
+      }
+    </ul>
+  </div>
+</section>
+
+<section class="section story-section">
+  <div class="container story-grid">
+    <div class="story-text">
+      <p class="eyebrow">Mon histoire</p>
+      <h2 class="display-title--md">
+        Une passion pour l'immobilier,<br>axée sur les gens
+      </h2>
+      <p>Né et élevé dans la région de Gatineau-Ottawa, j'ai toujours été fasciné par le pouvoir de l'immobilier à transformer des vies. Après avoir obtenu ma licence en 2004, j'ai bâti ma réputation une transaction à la fois, en plaçant toujours les intérêts de mes clients au premier plan.</p>
+      <p>Mon approche n'est pas celle d'un vendeur transactionnel. Je suis votre conseiller de confiance — quelqu'un qui comprend vos besoins, anticipe les défis et célèbre vos succès comme les siens.</p>
+      <p>Marié et père de famille, je comprends profondément ce que représente une maison au-delà de sa valeur marchande. C'est là que la vie se passe.</p>
+      <div class="story-stats">
+        <div class="story-stat">
+          <strong>500+</strong>
+          <span>Propriétés vendues</span>
+        </div>
+        <div class="story-stat">
+          <strong>20+</strong>
+          <span>Années d'expérience</span>
+        </div>
+        <div class="story-stat">
+          <strong>98%</strong>
+          <span>Clients satisfaits</span>
+        </div>
+      </div>
+      <a routerLink="/contact" class="btn btn-primary">Me contacter</a>
+    </div>
+    <div class="story-image" aria-hidden="true">
+      <img src="family_around_counter.png" alt="Propriétaires heureux dans leur nouvelle maison" class="story-img" />
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt recognition-section">
+  <div class="container">
+    <app-section-heading
+      eyebrow="Reconnaissances"
+      title="Distinctions & certifications"
+    />
+    <ul class="awards-grid" role="list">
+      <li class="award-card">
+        <span class="award-icon" aria-hidden="true">🥇</span>
+        <strong>#1 Équipe au bureau</strong>
+        <span>Réseau Royal LePage, 2022–2024</span>
+      </li>
+      <li class="award-card">
+        <span class="award-icon" aria-hidden="true">⭐</span>
+        <strong>Director's Platinum Award</strong>
+        <span>Royal LePage, 2020–2024</span>
+      </li>
+      <li class="award-card">
+        <span class="award-icon" aria-hidden="true">📜</span>
+        <strong>Certified Luxury Home Specialist</strong>
+        <span>CLHMS Certification</span>
+      </li>
+      <li class="award-card">
+        <span class="award-icon" aria-hidden="true">🏆</span>
+        <strong>Top Producer</strong>
+        <span>Gatineau-Ottawa Board of Realtors</span>
+      </li>
+    </ul>
+  </div>
+</section>

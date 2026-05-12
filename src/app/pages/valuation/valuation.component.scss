@@ -1,0 +1,249 @@
+.valuation-page {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: calc(100vh - 82px);
+}
+
+/* Left panel */
+.valuation-intro {
+  background: var(--color-surface-alt);
+  display: flex;
+  align-items: center;
+  padding: clamp(48px, 6vw, 96px) clamp(32px, 5vw, 80px);
+}
+
+.valuation-intro__inner {
+  max-width: 520px;
+
+  .eyebrow {
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    margin-bottom: 20px;
+  }
+}
+
+.intro-desc {
+  color: var(--color-muted);
+  font-size: 1rem;
+  margin-bottom: 32px;
+  line-height: 1.7;
+}
+
+.intro-benefits {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 40px;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: .9rem;
+    color: var(--color-ink-soft);
+  }
+}
+
+.benefit-icon {
+  color: var(--color-accent);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.intro-broker {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px;
+  background: var(--color-card);
+  border: var(--border);
+  border-radius: var(--radius-md);
+}
+
+.broker-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+
+  .img-placeholder {
+    min-height: 0;
+    height: 52px;
+    font-size: .6rem;
+    padding: 4px;
+  }
+}
+
+.intro-broker > div {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+
+  strong {
+    font-size: .9rem;
+    color: var(--color-ink);
+    font-weight: 700;
+  }
+
+  span {
+    font-size: .74rem;
+    color: var(--color-muted);
+  }
+
+  a {
+    font-size: .82rem;
+    color: var(--color-accent);
+    font-weight: 600;
+    margin-top: 2px;
+    transition: color .2s;
+
+    &:hover {
+      color: var(--color-accent-dark);
+    }
+  }
+}
+
+/* Right panel */
+.valuation-form-panel {
+  background: var(--color-surface);
+  display: flex;
+  align-items: flex-start;
+  padding: clamp(48px, 6vw, 96px) clamp(32px, 5vw, 80px);
+}
+
+.valuation-form-card {
+  width: 100%;
+  max-width: 560px;
+  padding: 36px;
+  border-radius: var(--radius-md);
+}
+
+.form-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--color-ink);
+  margin: 0 0 16px;
+}
+
+.form-divider {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin: 0 0 24px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  span:first-child {
+    font-size: .74rem;
+    font-weight: 600;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+}
+
+input,
+select,
+textarea {
+  padding: .68rem .9rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: .88rem;
+  color: var(--color-ink);
+  background: var(--color-card-warm);
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color .2s;
+
+  &:focus {
+    outline: none;
+    border-color: var(--color-accent);
+  }
+
+  &::placeholder {
+    color: var(--color-muted);
+    opacity: .7;
+  }
+}
+
+textarea {
+  resize: vertical;
+}
+
+.field-error {
+  font-size: .72rem;
+  color: #c0392b;
+}
+
+.submit-btn {
+  margin-top: 8px;
+  width: 100%;
+  min-height: 48px;
+  font-size: .84rem;
+}
+
+.form-disclaimer {
+  font-size: .72rem;
+  color: var(--color-muted);
+  margin: 0;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.form-success {
+  text-align: center;
+  padding: 40px 0;
+
+  .success-icon {
+    font-size: 2.5rem;
+    color: var(--color-accent);
+    margin: 0 0 8px;
+  }
+
+  h2 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 2rem;
+    margin: 0 0 8px;
+  }
+
+  p {
+    color: var(--color-muted);
+    margin: 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .valuation-page {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .valuation-form-panel {
+    padding-top: 48px;
+    justify-content: center;
+  }
+}

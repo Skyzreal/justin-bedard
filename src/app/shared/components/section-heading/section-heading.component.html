@@ -1,0 +1,14 @@
+<div class="section-heading" [class.align-left]="align === 'left'" [class.is-light]="light">
+  @if (eyebrow) {
+    <p class="eyebrow">{{ eyebrow }}</p>
+  }
+  <h2 class="display-title--md">
+    {{ title }}
+    @if (script) {
+      <br><em class="script">{{ script }}</em>
+    }
+  </h2>
+  @if (subtitle) {
+    <p class="subtitle">{{ subtitle }}</p>
+  }
+</div>

@@ -1,0 +1,24 @@
+<div class="photo-grid" [attr.data-count]="photos.length">
+  @for (photo of photos; track photo.alt; let i = $index) {
+    <button
+      class="photo-cell"
+      [class.photo-cell--primary]="i === 0"
+      (click)="open(i)"
+      [attr.aria-label]="'Voir ' + photo.alt"
+      type="button"
+    >
+      <div class="img-placeholder" role="img" [attr.aria-label]="photo.alt">
+        {{ photo.description }}
+      </div>
+      <span class="photo-overlay" aria-hidden="true">
+        <span class="zoom-icon">⤢</span>
+      </span>
+    </button>
+  }
+
+  @if (photos.length > 5) {
+    <button class="photo-more" (click)="open(5)" type="button" aria-label="Voir toutes les photos">
+      +{{ photos.length - 5 }} photos
+    </button>
+  }
+</div>

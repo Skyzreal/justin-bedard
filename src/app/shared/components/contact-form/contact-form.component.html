@@ -1,0 +1,75 @@
+@if (submitted()) {
+  <div class="form-success" role="alert">
+    <p class="success-icon">✓</p>
+    <h3>Message envoyé!</h3>
+    <p>Merci pour votre message. Justin vous contactera dans les plus brefs délais.</p>
+  </div>
+} @else {
+  <form
+    class="contact-form"
+    [ngClass]="'contact-form--' + theme"
+    [formGroup]="form"
+    (ngSubmit)="submit()"
+    novalidate
+  >
+    <div class="field-row">
+      <label>
+        <span>Nom complet</span>
+        <input
+          type="text"
+          formControlName="name"
+          placeholder="Votre nom"
+          [attr.aria-invalid]="form.get('name')?.invalid && form.get('name')?.touched"
+          autocomplete="name"
+        />
+        @if (form.get('name')?.invalid && form.get('name')?.touched) {
+          <span class="field-error">Ce champ est requis</span>
+        }
+      </label>
+      <label>
+        <span>Courriel</span>
+        <input
+          type="email"
+          formControlName="email"
+          placeholder="votre&#64;courriel.ca"
+          [attr.aria-invalid]="form.get('email')?.invalid && form.get('email')?.touched"
+          autocomplete="email"
+        />
+        @if (form.get('email')?.invalid && form.get('email')?.touched) {
+          <span class="field-error">Courriel invalide</span>
+        }
+      </label>
+    </div>
+
+    <label>
+      <span>Téléphone</span>
+      <input
+        type="tel"
+        formControlName="phone"
+        placeholder="819 000-0000"
+        autocomplete="tel"
+      />
+    </label>
+
+    <label>
+      <span>Service</span>
+      <select formControlName="service">
+        <option>Je cherche une propriété</option>
+        <option>Je veux vendre</option>
+        <option>Évaluation gratuite</option>
+        <option>Autre question</option>
+      </select>
+    </label>
+
+    <label>
+      <span>Message</span>
+      <textarea
+        formControlName="message"
+        placeholder="Votre message..."
+        rows="4"
+      ></textarea>
+    </label>
+
+    <button class="btn btn-primary" type="submit">Envoyer le message</button>
+  </form>
+}
