@@ -76,6 +76,32 @@
           </div>
         </div>
 
+        <div class="filter-group filter-group--price">
+          <div class="filter-group-label-row">
+            <p class="filter-group-label">Prix maximum</p>
+            <span class="filter-price-val">
+              @if (priceCeiling() >= priceMax) {
+                Tous les prix
+              } @else {
+                Jusqu'à {{ priceCeiling() }}k $
+              }
+            </span>
+          </div>
+          <input
+            type="range"
+            [min]="priceMin"
+            [max]="priceMax"
+            step="25"
+            [value]="priceCeiling()"
+            (input)="onPriceCeiling(+$any($event.target).value)"
+            class="filter-slider"
+            aria-label="Prix maximum" />
+          <div class="filter-slider-ticks">
+            <span>{{ priceMin }}k</span>
+            <span>{{ priceMax / 1000 }}M</span>
+          </div>
+        </div>
+
         @if (activeFilterCount() > 0) {
           <button class="filter-reset" (click)="resetFilters()" type="button">
             Effacer les filtres
@@ -91,7 +117,8 @@
     <div class="listings-toolbar">
       <div class="toolbar-right">
         <p class="listing-count" aria-live="polite">
-          {{ activeProperties().length }} propriété{{ activeProperties().length !== 1 ? 's' : '' }} trouvée{{ activeProperties().length !== 1 ? 's' : '' }}
+          <strong class="listing-count-n" [class.flash]="countFlash()">{{ activeProperties().length }}</strong>
+          propriété{{ activeProperties().length !== 1 ? 's' : '' }} trouvée{{ activeProperties().length !== 1 ? 's' : '' }}
         </p>
         <label class="sort-label" for="sort-select">
           <span class="sr-only">Trier par</span>

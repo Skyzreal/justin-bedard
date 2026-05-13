@@ -1,3 +1,5 @@
+<div class="about-backdrop">
+
 <section class="about-hero">
   <div class="container about-hero__inner">
     <div class="about-hero__text">
@@ -6,7 +8,6 @@
         Plus qu'un courtier,<br>
         <em class="script">Un partenaire de confiance</em>
       </h1>
-      <p>Passionné d'immobilier et profondément attaché à la communauté de Gatineau-Ottawa, je mets mon expertise au service de vos rêves depuis plus de 20 ans.</p>
     </div>
     <div class="about-hero__image" aria-hidden="true">
       <img src="justin_suit.png" alt="Justin Bédard" class="about-portrait" />
@@ -14,24 +15,26 @@
   </div>
 </section>
 
-<section class="section section--alt values-section">
+<section class="section values-section">
   <div class="container">
     <app-section-heading
       eyebrow="Mes valeurs"
       title="Ce qui me distingue"
       subtitle="Quatre piliers qui guident chacune de mes transactions et chacune de mes relations client."
     />
-    <ul class="values-grid" role="list">
+    <ul class="values-list" role="list">
       @for (v of values; track v.label) {
-        <li class="value-card">
-          <div class="value-icon-ring" aria-hidden="true">{{ v.icon }}</div>
-          <h3>{{ v.label }}</h3>
-          <p>{{ v.desc }}</p>
+        <li class="value-item">
+          <span class="value-icon" aria-hidden="true">{{ v.icon }}</span>
+          <h3 class="value-label">{{ v.label }}</h3>
+          <p class="value-desc">{{ v.desc }}</p>
         </li>
       }
     </ul>
   </div>
 </section>
+
+</div><!-- /.about-backdrop -->
 
 <section class="section story-section">
   <div class="container story-grid">

@@ -1,18 +1,54 @@
+/* Shared image backdrop for hero + values */
+.about-backdrop {
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -12px;
+    background: url('/background_multiple.png') no-repeat right top / auto 100%;
+    //filter: blur(4px); -- blur or no blur ?
+    pointer-events: none;
+    z-index: 0;
+  }
+}
+
+/* Hero */
 .about-hero {
-  background: var(--color-surface);
-  padding-block: clamp(60px, 9vw, 112px);
+  position: relative;
+  z-index: 1;
+  padding-block: clamp(60px, 9vw, 112px) 0;
+  overflow: hidden;
+
 }
 
 .about-hero__inner {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 60px;
-  align-items: center;
+  align-items: flex-end;
+  position: relative;
+  z-index: 1;
 }
 
 .about-hero__text {
+  align-self: center;
+
+  .eyebrow {
+    margin-bottom: 12px;
+  }
+
   h1 {
+    font-size: clamp(2.4rem, 4.2vw, 4.6rem);
     margin-bottom: 20px;
+    white-space: nowrap;
+
+    .script {
+      display: block;
+      margin-top: 16px;
+    }
   }
 
   p {
@@ -22,51 +58,72 @@
   }
 }
 
-.about-portrait {
-  aspect-ratio: .85;
-  border-radius: var(--radius-lg);
-  width: 100%;
-  object-fit: cover;
-  object-position: top;
+.about-hero__image {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  position: relative;
+  z-index: 1;
 }
 
-.values-grid {
+.about-portrait {
+  width: 100%;
+  max-width: 480px;
+  object-fit: contain;
+  object-position: bottom center;
+  margin-bottom: calc(-1 * clamp(60px, 9vw, 112px));
+}
+
+/* Values section — semi-transparent so backdrop bleeds through */
+.values-section {
+  background: rgba(247, 245, 238, 0.82);
+  position: relative;
+  z-index: 1;
+  padding-block: clamp(40px, 5vw, 64px);
+}
+
+.values-list {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: var(--gap);
+  border-top: 1px solid rgba(26, 26, 24, 0.14);
+  margin-top: 40px;
 }
 
-.value-card {
-  text-align: center;
-  background: var(--color-card);
-  border: var(--border);
-  border-radius: var(--radius-md);
-  padding: 32px 24px;
+.value-item {
+  padding: 32px 36px 0 0;
+
+  & + & {
+    padding-left: 36px;
+    border-left: 1px solid rgba(26, 26, 24, 0.1);
+  }
+
+  &:last-child {
+    padding-right: 0;
+  }
 }
 
-.value-icon-ring {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background: var(--color-success);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.6rem;
-  margin: 0 auto 16px;
+.value-icon {
+  display: block;
+  font-size: .82rem;
+  margin-bottom: 18px;
+  opacity: 0.45;
+  letter-spacing: .02em;
 }
 
-.value-card h3 {
+.value-label {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 1.3rem;
-  margin: 0 0 8px;
+  font-size: 1.55rem;
+  font-weight: 600;
+  color: var(--color-ink);
+  margin: 0 0 10px;
+  line-height: 1.1;
 }
 
-.value-card p {
-  font-size: .86rem;
+.value-desc {
+  font-size: .8rem;
   color: var(--color-muted);
   margin: 0;
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
 .story-grid {
@@ -156,7 +213,22 @@
 }
 
 @media (max-width: 1024px) {
-  .values-grid,
+  .values-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .values-list .value-item:nth-child(odd) {
+    padding-left: 0;
+    border-left: none;
+  }
+
+  .values-list .value-item:nth-child(3),
+  .values-list .value-item:nth-child(4) {
+    padding-top: 32px;
+    border-top: 1px solid rgba(26, 26, 24, 0.1);
+    margin-top: 32px;
+  }
+
   .awards-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -169,11 +241,30 @@
     gap: 32px;
   }
 
+  .about-hero__text {
+    padding-bottom: 0;
+  }
+
+  .about-portrait {
+    margin-bottom: calc(-1 * clamp(32px, 6vw, 64px));
+    max-width: 320px;
+  }
+
   .about-hero__image {
     order: -1;
   }
 
-  .values-grid,
+  .values-list {
+    grid-template-columns: 1fr;
+  }
+
+  .values-list .value-item {
+    padding: 24px 0 0 0 !important;
+    border-left: none !important;
+    border-top: 1px solid rgba(26, 26, 24, 0.1);
+    margin-top: 0;
+  }
+
   .awards-grid {
     grid-template-columns: 1fr;
   }

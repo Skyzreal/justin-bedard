@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, effect, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { PropertyService } from '../../shared/services/property.service';
@@ -23,14 +23,35 @@ export class BuyPropertiesComponent {
   selectedTypes = signal<Set<Property['type']>>(new Set());
   minBedrooms = signal<number | null>(null);
 
+  // Price slider — in thousands of dollars
+  readonly priceMin = 200;
+  readonly priceMax = 2000;
+  priceCeiling = signal(this.priceMax);
+
+  // Flash animation when the result count changes
+  countFlash = signal(false);
+  private prevCount = -1;
+
   readonly propertyTypes: Property['type'][] = ['Maison', 'Condo', 'Jumelé', 'Terrain', 'Commercial'];
   readonly bedroomOptions = [1, 2, 3, 4];
 
   private allProperties = this.propertyService.getAll();
 
+  constructor() {
+    effect(() => {
+      const n = this.activeProperties().length;
+      if (n !== this.prevCount) {
+        this.prevCount = n;
+        this.countFlash.set(true);
+        setTimeout(() => this.countFlash.set(false), 500);
+      }
+    });
+  }
+
   activeFilterCount = computed(() => {
     let count = this.selectedTypes().size;
     if (this.minBedrooms() !== null) count++;
+    if (this.priceCeiling() < this.priceMax) count++;
     return count;
   });
 
@@ -57,6 +78,11 @@ export class BuyPropertiesComponent {
 
     if (minBeds !== null) {
       list = list.filter(p => p.bedrooms >= minBeds);
+    }
+
+    const ceiling = this.priceCeiling() * 1000;
+    if (ceiling < this.priceMax * 1000) {
+      list = list.filter(p => p.price <= ceiling);
     }
 
     return [...list].sort((a, b) => {
@@ -87,9 +113,14 @@ export class BuyPropertiesComponent {
     this.minBedrooms.update(current => (current === n ? null : n));
   }
 
+  onPriceCeiling(value: number): void {
+    this.priceCeiling.set(value);
+  }
+
   resetFilters(): void {
     this.selectedTypes.set(new Set());
     this.minBedrooms.set(null);
+    this.priceCeiling.set(this.priceMax);
   }
 
   onSearch(value: string): void {

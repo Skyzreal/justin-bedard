@@ -98,11 +98,12 @@
 .marketing-image,
 .prep-image,
 .exclusive-image {
-  .img-placeholder {
-    aspect-ratio: .85;
+  img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
     border-radius: var(--radius-lg);
-    font-size: .8rem;
-    color: var(--color-muted);
+    display: block;
   }
 }
 

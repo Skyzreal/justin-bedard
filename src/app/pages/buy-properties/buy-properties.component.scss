@@ -310,6 +310,97 @@
   border: 0;
 }
 
+/* ── Price slider ─────────────────────────────────────── */
+.filter-group--price {
+  min-width: 220px;
+  flex: 1 0 220px;
+}
+
+.filter-group-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.filter-price-val {
+  font-size: .82rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.filter-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--color-border);
+  outline: none;
+  margin: 8px 0 4px;
+  cursor: pointer;
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    cursor: pointer;
+    border: 3px solid var(--color-card);
+    box-shadow: 0 0 0 1px var(--color-accent);
+    transition: transform .15s ease;
+  }
+
+  &::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+  }
+
+  &::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    cursor: pointer;
+    border: 3px solid var(--color-card);
+    box-shadow: 0 0 0 1px var(--color-accent);
+  }
+
+  &:focus {
+    outline: none;
+    &::-webkit-slider-thumb { box-shadow: 0 0 0 1px var(--color-accent), 0 0 0 4px rgba(138, 98, 50, .2); }
+  }
+}
+
+.filter-slider-ticks {
+  display: flex;
+  justify-content: space-between;
+  font-size: .68rem;
+  font-weight: 600;
+  color: var(--color-muted);
+  font-variant-numeric: tabular-nums;
+  margin-top: 2px;
+}
+
+/* ── Listing count flash ──────────────────────────────── */
+.listing-count-n {
+  display: inline-block;
+  color: var(--color-ink);
+  font-weight: 700;
+  transition: color .3s ease;
+
+  &.flash {
+    animation: count-flash .5s ease;
+  }
+}
+
+@keyframes count-flash {
+  0%   { color: var(--color-accent); transform: scale(1.15); }
+  100% { color: var(--color-ink);    transform: scale(1); }
+}
+
 @media (max-width: 760px) {
   .listings-toolbar {
     justify-content: flex-start;
@@ -317,5 +408,11 @@
 
   .filter-row {
     gap: 20px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-group--price {
+    min-width: 100%;
   }
 }
